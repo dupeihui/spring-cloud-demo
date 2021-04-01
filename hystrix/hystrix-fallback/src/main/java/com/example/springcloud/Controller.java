@@ -37,11 +37,17 @@ public class Controller {
             }
     )
     public String timeout2(Integer timeout){
-        return myService.retry(timeout);
+        while (--timeout >= 0) {
+            try {
+                Thread.sleep(1000);
+            } catch (InterruptedException e) {
+            }
+        }
+        return "No timeout!";
     }
 
     public String timeoutFallback(Integer timeout){
-        return "success";
+        return "timeout!";
     }
 
     @GetMapping("/cache")
@@ -49,7 +55,7 @@ public class Controller {
         @Cleanup HystrixRequestContext context = HystrixRequestContext.initializeContext();
 
         Friend friend = requestCacheService.requestCache(name);
-        name += "!";
+        //name += "!";
         friend = requestCacheService.requestCache(name);
         return friend;
     }
