@@ -3,9 +3,14 @@ package com.example.springcloud.controller;
 
 import com.example.springcloud.entity.Friend;
 import com.example.springcloud.inf.IService;
+import com.sun.jmx.remote.internal.ArrayQueue;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.boot.autoconfigure.transaction.PlatformTransactionManagerCustomizer;
+import org.springframework.boot.autoconfigure.transaction.TransactionAutoConfiguration;
 import org.springframework.web.bind.annotation.RestController;
+
+import java.util.*;
 
 @RestController
 @Slf4j
@@ -21,6 +26,7 @@ public class FeignClientController implements IService {
 
     @Override
     public Friend sayHi(Friend friend) {
+
         log.info("you are " + friend.getName());
         friend.setPort(port);
         return friend;
